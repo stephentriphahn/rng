@@ -20,7 +20,7 @@ Pure, serialisable, replayable randomness for Clojure. The rng is plain data
 (rng/roll-dice (rng/scripted [6 1 4]) 2) ;=> [[6 1] {:queue [4]}]
 ```
 
-Install: `net.clojars.stevetrip/rng {:mvn/version "0.1.0"}`
+Install: `net.clojars.stephentriphahn/rng {:mvn/version "0.1.0"}`
 
 Test: `clj -X:test` / `clj -M:test`. Build: `clj -T:build jar`.
 Licensed under the EPL-1.0.

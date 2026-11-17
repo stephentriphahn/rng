@@ -2,7 +2,7 @@
   (:require [clojure.tools.build.api :as b]
             [deps-deploy.deps-deploy :as dd]))
 
-(def lib 'net.clojars.stevetrip/rng)
+(def lib 'net.clojars.stephentriphahn/rng)
 (def version "0.1.0")
 (def class-dir "target/classes")
 (def jar-file (format "target/%s-%s.jar" (name lib) version))
@@ -14,7 +14,7 @@
   (let [basis (b/create-basis {:project "deps.edn"})]
     (b/write-pom {:class-dir class-dir :lib lib :version version :basis basis
                   :src-dirs ["src"]
-                  :scm {:url "https://github.com/stephentriphahn/swtcg-rng"}
+                  :scm {:url "https://github.com/stephentriphahn/rng"}
                   :pom-data [[:description "Pure, serialisable, replayable randomness: splitmix64 dice rolls and shuffles as plain data."]
                              [:licenses [:license
                                          [:name "Eclipse Public License 1.0"]

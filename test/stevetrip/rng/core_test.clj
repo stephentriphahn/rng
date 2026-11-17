@@ -54,12 +54,10 @@
       (is (= [[:a] (rng/seeded 3)] (rng/shuffle (rng/seeded 3) [:a]))))))
 
 (deftest random-seed-survives-json-test
-  ;; Slice 31. A seed is reported to the browser so a game can be replayed,
-  ;; and JSON has one number type that JavaScript reads as a double - exact
-  ;; only to 2^53. A full-range `.nextLong` seed therefore arrived at the
-  ;; client ALTERED (8256368015606065355 -> 8256368015606065000), and asking
-  ;; to replay it started a different game. Silent, and it defeated the whole
-  ;; point of reporting the seed.
+  ;; A seed is often reported to a browser so a run can be replayed, and JSON
+  ;; has one number type that JavaScript reads as a double - exact only to 2^53.
+  ;; A full 64-bit seed would arrive altered (8256368015606065355 ->
+  ;; 8256368015606065000), and replaying it would silently give a different stream.
   (let [seeds (repeatedly 500 rng/random-seed)]
     (testing "every generated seed is inside JavaScript's exact-integer range"
       (is (every? #(<= 0 % rng/max-safe-seed) seeds)))
@@ -70,7 +68,7 @@
       (is (= 500 (count (distinct seeds))))
       (is (every? #(= {:seed % :n 0} (rng/seeded %)) (take 5 seeds))))
     (testing "a hand-passed seed is still allowed to be any long - only what
-             this engine HANDS OUT is bounded"
+             random-seed hands out is bounded"
       (is (= {:seed 8256368015606065355 :n 0} (rng/seeded 8256368015606065355))))))
 
 (deftest next-int-test
